@@ -6,7 +6,7 @@
 4. loggingFilter, SwaggerConfig, JpaConfig 구현 되어 있음
 5. conflict 주의
    - JpaConfig : basePackage 설정
-   - ExceptionControllerAdvice : Exceptions 관련해서도 한분이 맡아서 하면 좋을 것 같네요..!
+   - ExceptionControllerAdvice : 기본 InvaliedValueException, NotAcceptException, NotFoundException, AccessDenied 구현 되어 있음. 
 
 
 
