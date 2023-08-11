@@ -43,6 +43,7 @@ CRUD 게시판.
 - **Database** : MySQL
 - **ORM** : JPA
 - **DOCS** : Swagger
+- **LOGGING** : Slf4J
 
 ## 📌 주요 기능
 ### 요구사항 명세
