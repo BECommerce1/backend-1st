@@ -1,7 +1,11 @@
 8월 11일 금 공지
 [전달사항]
-1. 프론트 연동 위해 React 설치가 필요
-   npm install -> npm start. (node.js 사전 설치)
+1. 프론트 연동 위해 React 설치가 필요해 일단 보류후 postman으로 api 테스트하기
+2. application.yaml의 datasource에 각자 database 환경설정
+3. loggingFilter, SwaggerConfig, JpaConfig 구현 되어 있음
+4. conflict 주의
+   - JpaConfig : basePackage 설정
+   - ExceptionControllerAdvice : Exceptions 관련해서도 한분이 맡아서 하면 좋을 것 같네요..!
 
 
 
