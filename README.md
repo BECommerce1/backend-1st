@@ -18,7 +18,7 @@ CRUD 게시판.
 ### ⚙️ 개발 환경, 기술
 - **JAVA 11**
 - **IDE** : IntelliJ
-- **Framework** : Springboot
+- **Framework** : Springboot 2.7.14
 - **Database** : MySQL
 - **ORM** : JPA
 - **DOCS** : Swagger
