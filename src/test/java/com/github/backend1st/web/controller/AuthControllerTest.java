@@ -1,4 +1,4 @@
 package com.github.backend1st.web.controller;
 
-public class MemberController {
+public class AuthControllerTest {
 }
