@@ -13,10 +13,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
-
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.github.backend1st.repository.member", "com.github.backend1st.repository.role"},
+        basePackages = {"com.github.backend1st.repository.member"},
         // 23.08.11 hyuna - package에 추가필요
         entityManagerFactoryRef = "entityManagerFactoryBean",
         transactionManagerRef = "tmJpa"
@@ -24,10 +23,10 @@ import java.util.Map;
 public class JpaConfig {
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.github.backend1st.repository.member", "com.github.backend1st.repository.role");
+        em.setPackagesToScan("com.github.backend1st.repository.member");
         // 23.08.11 hyuna - setPackagesToScan에 추가필요
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -44,9 +43,9 @@ public class JpaConfig {
     }
 
     @Bean(name = "tmJpa")
-    public PlatformTransactionManager transactionManger(@Qualifier("dataSource") DataSource dataSource) {
+    public PlatformTransactionManager transactionManager(@Qualifier("dataSource") DataSource dataSource) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory(dataSource).getObject());
+        transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());
         return transactionManager;
     }
 
