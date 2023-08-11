@@ -1,3 +1,24 @@
+8월 11일 금 공지
+[전달사항]
+1. 프론트 연동 위해 React 설치가 필요
+   npm install -> npm start. (node.js 사전 설치)
+
+
+
+[회의내용]
+
+
+[TODO]
+
+
+[건의사항]
+
+
+
+
+
+
+
 # SpringBoot - backend-1st
 슈퍼코딩 half 백엔드 커머스 1팀 - 1주차 프로젝트
 
