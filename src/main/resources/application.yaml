@@ -1,12 +1,15 @@
-datasource:
-  username: root
-  password: 12341234
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/be_commerce_1?useUnicode=true&characterEncoding=UTF-8
+# 23.08.12 hyuna dataSource 나중에 환경변수로 주입할지 결정 필요
+#datasource:
+#  username: root
+#  password: 12341234
+#  driver-class-name: com.mysql.cj.jdbc.Driver
+#  url: jdbc:mysql://localhost:3306/be_commerce_1?useUnicode=true&characterEncoding=UTF-8
 
 spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
 
 
