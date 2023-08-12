@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
-    private AuthService authService;
+    private final AuthService authService;
 
     @ApiOperation("이메일과 패스워드로 회원가입 API")
     @PostMapping(value = "/register")
@@ -26,7 +26,7 @@ public class AuthController {
         boolean isSuccess = authService.signUp(registerRequest);
 
         // TODO : 회원 가입 시 아예 메인으로 리다이렉트해주기
-        return isSuccess ? "회원가입 성공하였습니다." : "회원가입 실패하였습니다.";
+        return isSuccess ? "회원가입 성공하였습니다." : "회원가입에 실패하였습니다";
     }
 
     @ApiOperation("이메일과 패스워드로 로그인 API")
