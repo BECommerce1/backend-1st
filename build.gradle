@@ -41,6 +41,10 @@ dependencies {
 	// jwt
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
 	// Test LOMBOK
 	testCompileOnly 'org.projectlombok:lombok';
 	testAnnotationProcessor 'org.projectlombok:lombok';

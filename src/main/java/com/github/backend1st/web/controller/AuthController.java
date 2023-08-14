@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/v1/api/sign")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
@@ -33,9 +33,9 @@ public class AuthController {
     @PostMapping(value = "/login")
     public String login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse){
         String token = authService.login(loginRequest);
+        httpServletResponse.setHeader("X-AUTH-TOKEN", token);
 
-        // TODO : login시 토큰
-        //httpServletResponse.setHeader("X-AUTH-TOKEN", token);
+        // TODO : 로그인 성공 시 메인으로 리다이렉트 해주기
         return "로그인이 성공하였습니다.";
     }
 }
