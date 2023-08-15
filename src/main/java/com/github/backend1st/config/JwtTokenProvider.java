@@ -18,7 +18,6 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-
     private String secretKey = Base64.getEncoder().encodeToString("be_commerce_1".getBytes());
     private long tokenValidMillisecond = 1000L * 60 * 60; // 1시간
 
@@ -42,7 +41,7 @@ public class JwtTokenProvider {
 
     }
 
-    // token 유효기간인지 아닌지 Boolean
+    // token 유효한지 아닌지 Boolean
     public boolean validateToken(String jwtToken) {
         try {
             Claims claims = Jwts.parser()
