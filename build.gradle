@@ -29,10 +29,8 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 
 	// JPA
-	runtimeOnly 'mysql:mysql-connector-java:8.0.26'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor" // 추가
 
 	// Hibernate
 	runtimeOnly 'com.h2database:h2'
@@ -41,9 +39,10 @@ dependencies {
 	// jwt
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
-	// Test LOMBOK
-	testCompileOnly 'org.projectlombok:lombok';
-	testAnnotationProcessor 'org.projectlombok:lombok';
+	// Mapstruct
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
 }
 
 tasks.named('test') {
