@@ -8,11 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LikesJpaRepository extends JpaRepository<LikesEntity,Long> {
-
-
     List<LikesEntity> findLikesByMemberIdAndReplyId(Long memberId, Long replyId);
-
     long countByReplyId(Long replyId);
-
     boolean existsByMemberIdAndReplyId(Long memberId, Long replyId);
 }
