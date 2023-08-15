@@ -42,21 +42,31 @@ public class LikesService {
 
     public Long deleteLike(Long memberId, Long replyId) {
         if (memberId == null || replyId == null) {
-            throw new IllegalArgumentException("memberId or replyId must not be null");
+            throw new IllegalArgumentException("입력된 정보가 없습니다.");
         }
+
+        //memberId,replyId의 값으로 like_no값 호출 하기
         List<LikesEntity> likesEntities =  likesJpaRepository.findLikesByMemberIdAndReplyId(memberId,replyId);
         List<Long> likeIds = likesEntities.stream()
                 .map(likeEntity -> likeEntity.getLikeId())
                 .collect(Collectors.toList());
-
+        //입력된 값 확인 처리
+        if(likeIds.get(0) == 0){
+            throw new NotFoundException("결과 값이 없어 삭제 불가능 합니다.");
+        }
+        //삭제 처리
         likesJpaRepository.deleteById(likeIds.get(0));
         return likeIds.get(0);
     }
     public long countLike(Long replyId) {
+
         return likesJpaRepository.countByReplyId(replyId);
     }
 
     public boolean existsByMemberIdAndReplyId(Long memberId, Long replyId) {
+        if (memberId == null || replyId == null) {
+            throw new IllegalArgumentException("입력된 정보가 없습니다.");
+        }
         return likesJpaRepository.existsByMemberIdAndReplyId(memberId, replyId);
     }
 }
