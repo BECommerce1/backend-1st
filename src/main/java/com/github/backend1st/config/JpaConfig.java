@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.github.backend1st.repository.member", "com.github.backend1st.repository.token"},
+        basePackages = {"com.github.backend1st.repository.member","com.github.backend1st.repository.likes", "com.github.backend1st.repository.token"},
         // 23.08.11 hyuna - package에 추가필요
         entityManagerFactoryRef = "entityManagerFactoryBean",
         transactionManagerRef = "tmJpa"
@@ -40,7 +40,7 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.github.backend1st.repository.member", "com.github.backend1st.repository.token");
+        em.setPackagesToScan("com.github.backend1st.repository.member","com.github.backend1st.repository.likes", "com.github.backend1st.repository.token");
         // 23.08.11 hyuna - setPackagesToScan에 추가필요
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
