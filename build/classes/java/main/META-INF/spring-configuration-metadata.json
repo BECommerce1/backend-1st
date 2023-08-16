@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "datasource",
+      "type": "com.github.backend1st.properties.DataSourceProperties",
+      "sourceType": "com.github.backend1st.properties.DataSourceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "datasource.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.github.backend1st.properties.DataSourceProperties"
+    },
+    {
+      "name": "datasource.password",
+      "type": "java.lang.String",
+      "sourceType": "com.github.backend1st.properties.DataSourceProperties"
+    },
+    {
+      "name": "datasource.url",
+      "type": "java.lang.String",
+      "sourceType": "com.github.backend1st.properties.DataSourceProperties"
+    },
+    {
+      "name": "datasource.username",
+      "type": "java.lang.String",
+      "sourceType": "com.github.backend1st.properties.DataSourceProperties"
+    }
+  ],
+  "hints": []
+}

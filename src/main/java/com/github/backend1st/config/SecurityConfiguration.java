@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()// 조건별로 요청 허용/제한 설정
                 .antMatchers("/api/login", "/api/signup").permitAll() // 로그인, 회원가입 API는 permitAll()
                 //.antMatchers("/post/create").hasRole("USER") // 유저만 게시물 작성 가능 TODO : 댓글, 좋아요도 추가하기
-                .antMatchers("/post/create").authenticated()
+                //.antMatchers("/post/create").authenticated()
                 .and()
                 .exceptionHandling()    // 에러 핸들링
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
