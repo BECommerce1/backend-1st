@@ -7,7 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-
-    // TODO : 회원가입 전에 이메일로 유저가 있는지 검사하는 findByEmail(email)
     Boolean existsByEmail(String email);
+    Optional<Member> findAllByEmail(String email);
 }
