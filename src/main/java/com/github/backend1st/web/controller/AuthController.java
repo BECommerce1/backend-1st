@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/v1/api/sign")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
@@ -25,7 +25,7 @@ public class AuthController {
     // 23.08.15 hyuna 토큰을 쿠키에 저장하고 삭제할때 토큰을 없애는 방식도 있음..
 
     @ApiOperation("이메일과 패스워드로 회원가입 API")
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/signup")
     public String register(@RequestBody RegisterRequest registerRequest) {
         boolean isSuccess = authService.signUp(registerRequest);
 
@@ -48,7 +48,7 @@ public class AuthController {
     public String logout(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("X-AUTH-TOKEN");
 
-        if (token.isEmpty()) return "헤더에 토큰이 없습니다.";
+        if (token == null) return "헤더에 토큰이 없습니다.";
 
         if (authService.logout(token) ) {
             return "로그아웃이 성공하였습니다.";

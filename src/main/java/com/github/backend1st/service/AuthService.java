@@ -93,7 +93,6 @@ public class AuthService {
     public boolean logout(String token) {
         // 로그아웃 로직
         // token 테이블에서 토큰이 존재하면 delete
-
         // blacklist table에 해당 토큰이 있는지 검사
         if (!tokenRepository.existsByToken(token)) return false;
 

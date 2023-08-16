@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// Spring Security 세션 정책 : 세션을 생성 및 사용하지 않음
                 .and()
                 .authorizeRequests()// 조건별로 요청 허용/제한 설정
-                .antMatchers("/v1/api/sign/*").permitAll() // 로그인, 회원가입 API는 permitAll()
+                .antMatchers("/api/login", "/api/signup").permitAll() // 로그인, 회원가입 API는 permitAll()
                 //.antMatchers("/post/create").hasRole("USER") // 유저만 게시물 작성 가능 TODO : 댓글, 좋아요도 추가하기
                 .antMatchers("/post/create").authenticated()
                 .and()
@@ -60,7 +60,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:63342"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowCredentials(true); // token 주고 받을 때,
         configuration.addExposedHeader("X-AUTH_TOKEN"); // token
         configuration.addAllowedHeader("*");

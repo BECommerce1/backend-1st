@@ -19,6 +19,7 @@ public class LoggingFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
 
         log.info(method + uri + " 요청이 들어왔습니다.");
+        log.info(request.getRequestURL().toString());
 
         filterChain.doFilter(request, response);
 
