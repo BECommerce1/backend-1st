@@ -55,4 +55,15 @@ public class CommentsService {
                 .map(comments -> new CommentsResponseDto(comments, posts, member))
                 .collect(Collectors.toList());
     }
+
+    // 댓글수정
+    public void updateComment(Long commentId, CommentsRequestDto commentsRequestDto){
+
+        Posts posts =  postRepository.findById(commentsRequestDto.getPostId())
+                .orElseThrow(() -> new NotFoundException("댓글 수정 실패!! 해당 게시글은 존재하지 않습니다. ," + commentsRequestDto.getPostId()));
+        Comments comments  = commentsRepository.findById(commentId)
+                .orElseThrow(() -> new NotFoundException(posts.getPostId()+"번 게시글에는 해당 댓글은 존재하지 않습니다. ," + commentId));
+
+        comments.updateComment(commentsRequestDto.getContent(), commentsRequestDto.toEntity().getUpdateAt());
+    }
 }

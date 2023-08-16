@@ -41,4 +41,13 @@ public class CommentsController {
     }
 
 
+    // 댓글 수정
+    @PutMapping("/{commentId}")
+    public ResponseEntity<ResponseDto> updateComment(@RequestBody CommentsRequestDto commentsRequestDto, @PathVariable Long commentId){
+        commentsService.updateComment(commentId, commentsRequestDto);
+        ResponseDto responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("댓글이 성공적으로 수정되었습니다.").build();
+        return ResponseEntity.ok(responseDto);
+    }
+
+
 }
