@@ -49,5 +49,13 @@ public class CommentsController {
         return ResponseEntity.ok(responseDto);
     }
 
+    // 댓글 삭제
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<ResponseDto> deleteComment(@PathVariable Long commentId){
+        commentsService.deleteComment(commentId);
+        ResponseDto responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("댓글이 성공적으로 삭제되었습니다.").build();
+        return ResponseEntity.ok(responseDto);
+    }
+
 
 }

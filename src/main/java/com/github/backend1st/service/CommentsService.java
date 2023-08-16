@@ -66,4 +66,14 @@ public class CommentsService {
 
         comments.updateComment(commentsRequestDto.getContent(), commentsRequestDto.toEntity().getUpdateAt());
     }
+
+
+    // 댓글삭제
+    public void deleteComment(Long commentId){
+        Comments comments  = commentsRepository.findById(commentId)
+                .orElseThrow(() -> new NotFoundException("댓글 삭제 실패!! 해당 게시글은 존재하지 않습니다. ," + commentId));
+        commentsRepository.delete(comments);
+
+    }
+
 }
