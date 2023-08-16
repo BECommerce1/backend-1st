@@ -2,12 +2,15 @@ package com.github.backend1st.web.controller;
 
 import com.github.backend1st.service.CommentsService;
 import com.github.backend1st.web.dto.CommentsRequestDto;
+import com.github.backend1st.web.dto.CommentsResponseDto;
 import com.github.backend1st.web.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -27,5 +30,15 @@ public class CommentsController {
         return ResponseEntity.ok(responseDto);
 
     }
+
+    /* REST API URI 다시설계, path말고 json으로 변경 */
+    // 댓글 조회
+    @GetMapping("/{postId}")
+    public ResponseEntity<List<CommentsResponseDto>> getPost(@PathVariable Long postId){
+        Long memberId = 1l;
+        List<CommentsResponseDto> commentsList = commentsService.findByCommentList(postId, memberId);
+        return ResponseEntity.ok(commentsList);
+    }
+
 
 }
