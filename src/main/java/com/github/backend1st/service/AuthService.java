@@ -59,6 +59,11 @@ public class AuthService {
         String password = loginRequest.getPassword();
 
         try {
+            // login 시에 새 토큰을 발급할 수 없도록 이메일로 token 테이블에서 이미 존재하는지 검사하고,
+            // 존재하면 error로 리턴.
+
+
+
             // 1. SpringSecurity Context에 인증 정보 등록하기
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password)
@@ -85,7 +90,7 @@ public class AuthService {
             return token;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             throw new NotAcceptException("로그인 할 수 없습니다.");
         }
     }

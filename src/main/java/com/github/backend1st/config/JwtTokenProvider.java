@@ -75,6 +75,7 @@ public class JwtTokenProvider {
 
     // 토큰에서 인증 가져오기(UwernamePasswordAuthenticationToken)
     public Authentication getAuthentication(String jwtToken) {
+        if (jwtToken == null) return null;
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUserEmail(jwtToken));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }

@@ -62,7 +62,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowCredentials(true); // token 주고 받을 때,
-        configuration.addExposedHeader("X-AUTH_TOKEN"); // token
+        configuration.addExposedHeader("X-AUTH-TOKEN"); // token
         configuration.addAllowedHeader("*");
         configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS"));
         configuration.setMaxAge(3600L);
