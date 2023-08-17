@@ -1,5 +1,6 @@
 package com.github.backend1st.web.dto;
 
+import com.github.backend1st.repository.member.Member;
 import com.github.backend1st.repository.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,11 +18,11 @@ public class PostsRequestDto {
 
 
     // dto > entity
-    public Posts toEntity(){
+    public Posts toEntity(Member member){
         return Posts.builder()
                 .title(title)
                 .content(content)
-                .author(author)
+                .author(member.getEmail())
                 .build();
     }
 }
