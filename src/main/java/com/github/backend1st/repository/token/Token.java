@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Token {
     @Id
     @Column(name = "token_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long blacklistId;
+    private Long tokenId;
 
     @Column(name = "token")
     private String token;

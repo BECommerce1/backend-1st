@@ -1,7 +1,6 @@
 package com.github.backend1st.web.controller;
 
 import com.github.backend1st.service.AuthService;
-import com.github.backend1st.service.exceptions.InvalidValueException;
 import com.github.backend1st.web.dto.LoginRequest;
 import com.github.backend1st.web.dto.RegisterRequest;
 import com.github.backend1st.web.dto.ResponseDto;
