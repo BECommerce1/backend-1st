@@ -1,6 +1,7 @@
 package com.github.backend1st.config;
 
 import com.github.backend1st.repository.member.Role;
+import com.github.backend1st.service.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,7 +22,7 @@ public class JwtTokenProvider {
     private String secretKey = Base64.getEncoder().encodeToString("be_commerce_1".getBytes());
     private long tokenValidMillisecond = 1000L * 60 * 60; // 1시간
 
-    private UserDetailsService userDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     // create Access Token
     public String createToken(String email, Role role) {
@@ -76,7 +77,7 @@ public class JwtTokenProvider {
     // 토큰에서 인증 가져오기(UwernamePasswordAuthenticationToken)
     public Authentication getAuthentication(String jwtToken) {
         if (jwtToken == null) return null;
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUserEmail(jwtToken));
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(getUserEmail(jwtToken));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
