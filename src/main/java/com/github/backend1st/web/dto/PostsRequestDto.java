@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-/* 게시판 요청 dto */
 @Builder
 @Getter
 @Setter
@@ -14,15 +13,13 @@ public class PostsRequestDto {
 
     private String title;
     private String content;
-    private String author;
-
 
     // dto > entity
     public Posts toEntity(Member member){
         return Posts.builder()
                 .title(title)
                 .content(content)
-                .author(member.getEmail())
+                .member(member)
                 .build();
     }
 }

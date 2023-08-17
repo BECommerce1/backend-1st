@@ -46,12 +46,11 @@ public class Posts {
     private List<Comments> commentList;
 
     @Builder
-    public Posts(Long postId, String title, String content, String author, LocalDateTime createAt, LocalDateTime updateAt){
+    public Posts(Long postId, String title, String content, Member member){
         this.postId = postId;
         this.title = title;
         this.content = content;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.member = member;
     }
 
     public void updatePost(String title, String content){
