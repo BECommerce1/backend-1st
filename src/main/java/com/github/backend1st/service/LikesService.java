@@ -16,14 +16,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(transactionManager = "tmJpa")
+@Transactional
 public class LikesService {
     private final LikesJpaRepository likesJpaRepository;
-
-    @Transactional(transactionManager = "tmJpa")
-    public String savaItem(Likes likes) {
-        Long memberId = likes.getMemberId();
-        Long replyId= likes.getReplyId();
+    public String savaItem(Long memberId, Long replyId) {
 
         //TODO: 아이디 체크가 아닌 현재 저장될 코멘트가 있는지 체크
         List<LikesEntity> likesEntities =  likesJpaRepository.findLikesByMemberIdAndReplyId(memberId,replyId);
@@ -60,7 +56,6 @@ public class LikesService {
         return likeIds.get(0);
     }
     public long countLike(Long replyId) {
-
         return likesJpaRepository.countByReplyId(replyId);
     }
 
