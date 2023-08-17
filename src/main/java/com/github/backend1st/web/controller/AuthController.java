@@ -4,9 +4,12 @@ import com.github.backend1st.service.AuthService;
 import com.github.backend1st.service.exceptions.InvalidValueException;
 import com.github.backend1st.web.dto.LoginRequest;
 import com.github.backend1st.web.dto.RegisterRequest;
+import com.github.backend1st.web.dto.ResponseDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,37 +27,93 @@ public class AuthController {
 
     // 23.08.15 hyuna 토큰을 쿠키에 저장하고 삭제할때 토큰을 없애는 방식도 있음..
 
+//    @ApiOperation("이메일과 패스워드로 회원가입 API")
+//    @PostMapping(value = "/signup")
+//    public String register(@RequestBody RegisterRequest registerRequest) {
+//        boolean isSuccess = authService.signUp(registerRequest);
+//
+//        return isSuccess ? "회원가입 성공하였습니다." : "회원가입에 실패하였습니다";
+//    }
+
     @ApiOperation("이메일과 패스워드로 회원가입 API")
     @PostMapping(value = "/signup")
-    public String register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<ResponseDto> register(@RequestBody RegisterRequest registerRequest){
         boolean isSuccess = authService.signUp(registerRequest);
 
-        // TODO : 회원 가입 시 아예 메인으로 리다이렉트해주기
-        return isSuccess ? "회원가입 성공하였습니다." : "회원가입에 실패하였습니다";
+        ResponseDto responseDto;
+
+        if (isSuccess) {
+            responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("회원가입이 완료되었습니다.").build();
+            return ResponseEntity.ok(responseDto);
+        }
+        else {
+            responseDto = ResponseDto.builder().status(HttpStatus.NOT_FOUND.toString()).message("회원가입에 실패하였습니다.").build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
+        }
+
+
     }
+
+//    @ApiOperation("이메일과 패스워드로 로그인 API")
+//    @PostMapping(value = "/login")
+//    public String login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse){
+//        String token = authService.login(loginRequest);
+//        httpServletResponse.setHeader("X-AUTH-TOKEN", token);
+//
+//        return "로그인이 성공하였습니다.";
+//    }
 
     @ApiOperation("이메일과 패스워드로 로그인 API")
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse){
+    public ResponseEntity<ResponseDto> login(@RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse){
         String token = authService.login(loginRequest);
         httpServletResponse.setHeader("X-AUTH-TOKEN", token);
-
-        // TODO : 로그인 성공 시 메인으로 리다이렉트 해주기
-        return "로그인이 성공하였습니다.";
+        ResponseDto responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("로그인이 성공적으로 완료되었습니다.").build();
+        return ResponseEntity.ok(responseDto);
     }
+
+//    @ApiOperation("로그아웃 API")
+//    @PostMapping(value = "/logout")
+//    public String logout(HttpServletRequest httpServletRequest){
+//        String token = httpServletRequest.getHeader("X-AUTH-TOKEN");
+//
+//        if (token == null) return "헤더에 토큰이 없습니다.";
+//
+//        if (authService.logout(token) ) {
+//            return "로그아웃이 성공하였습니다.";
+//        }
+//        else {
+//            return "이미 로그아웃 되었습니다.";
+//        }
+//    }
 
     @ApiOperation("로그아웃 API")
     @PostMapping(value = "/logout")
-    public String logout(HttpServletRequest httpServletRequest){
+    public ResponseEntity<ResponseDto> logout(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("X-AUTH-TOKEN");
 
-        if (token == null) return "헤더에 토큰이 없습니다.";
+        if (token == null) {
+            return ResponseEntity
+                    .ok(ResponseDto
+                            .builder()
+                            .status(HttpStatus.OK.toString())
+                            .message("헤더에 토큰이 없습니다.")
+                            .build());
+        }
 
         if (authService.logout(token) ) {
-            return "로그아웃이 성공하였습니다.";
+            return ResponseEntity
+                    .ok(ResponseDto
+                            .builder()
+                            .status(HttpStatus.OK.toString())
+                            .message("로그아웃되었습니다.").build());
         }
         else {
-            return "이미 로그아웃 되었습니다.";
+            return ResponseEntity
+                    .ok(ResponseDto
+                            .builder()
+                            .status(HttpStatus.OK.toString())
+                            .message("이미 로그아웃 되었습니다.").build());
         }
     }
 } // end class

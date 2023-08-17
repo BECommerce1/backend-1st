@@ -35,17 +35,24 @@ const ListPage = () => {
   }, []);
 
   const logoutHandler = async () => {
-    const email = localStorage.getItem('email');
-    if (!email) {
+    console.log('logout Token : ' + localStorage.getItem('X-AUTH-TOKEN'))
+    const token = localStorage.getItem('X-AUTH-TOKEN');
+    if (!token) { // 로그인이 되지 않은 상태일때 회원가입, 로그인 페이지로
       navigate('/login');
       return;
     }
-    await fetch(`http://localhost:8080/api/logout`, {
+    await fetch(`http://localhost:8080/api/logout`, { // 로그아웃 할때
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+      },
       body: JSON.stringify({
-        email
+        token
       })
     }).then(res => res.json()).then(() => {
+      // 23.08.17 hyuna localStorage에서 토큰 삭제
+      localStorage.removeItem('X-AUTH-TOKEN');
       navigate('/login');
     }).catch((error) => console.error(error));
     ;

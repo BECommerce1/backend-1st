@@ -7,23 +7,78 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const loginHandler = async (path ,email, password) => {
-    await fetch(`http://localhost:8080${path}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password
+    try {
+      const response= await fetch(`http://localhost:8080${path}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        }),
       })
-    }).then(res => res.json()).then(() => {
-      if(path === '/api/login') {
+
+      if (!response.ok) throw new Error(response.status);
+
+      const data = response.json();
+
+      if (path === '/api/login') {
+
+        if (response.status != 200) {
+          alert(response.status)
+          return;
+        }
+
+        console.log('login email : ' + email)
         localStorage.setItem('email', email);
+
+        // 23.08.17 hyuna token 저장..
+        console.log('login Token : ' + response.headers.get('X-AUTH-TOKEN'));
+        localStorage.setItem('X-AUTH-TOKEN', response.headers.get('X-AUTH-TOKEN'));
+
         navigate('/')
       }
-    }).catch((error) => console.error(error));;
+      else if (path === '/api/signup') {
+        console.log('signup : ' + data)
+        navigate('/')
+      }
+    }
+    catch (error) {
+      alert(error)
+    }
   }
+
+
+  // const loginHandler = async (path ,email, password) => {
+  //   await fetch(`http://localhost:8080${path}`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type' : 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       password
+  //     }),
+  //   }).then(res => res.json()).then((data) => {
+  //     if(path === '/api/login') {
+  //       console.log(data)
+  //       localStorage.setItem('email', data.email);
+  //
+  //       navigate('/')
+  //     }
+  //     else if (path === '/api/signup') {
+  //       console.log(data)
+  //       navigate('/')
+  //     }
+  //
+  //   }).catch((error) => console.error(error));;
+  // }
+
   return (
     <div style={{
       padding: '40px'

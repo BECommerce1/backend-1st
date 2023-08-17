@@ -1,5 +1,7 @@
 package com.github.backend1st.web.advice;
 
+import com.github.backend1st.config.CustomAccessDeniedHandler;
+import com.github.backend1st.service.exceptions.CustomAuthenticationEntryPointException;
 import com.github.backend1st.service.exceptions.InvalidValueException;
 import com.github.backend1st.service.exceptions.NotAcceptException;
 import com.github.backend1st.service.exceptions.NotFoundException;
@@ -42,10 +44,10 @@ public class ExceptionControllerAdvice {
         return ade.getMessage();
     }
 
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ExceptionHandler(CAuthenticationEntryPointException.class)
-//    public String handleAuthenticationException(CAuthenticationEntryPointException ae){
-//        log.error("Client 요청에 문제가 있어 다음처럼 출력합니다. " + ae.getMessage());
-//        return ae.getMessage();
-//    }
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(CustomAuthenticationEntryPointException.class)
+    public String handleAuthenticationException(CustomAuthenticationEntryPointException ae){
+        log.error("무효화된 토큰 입니다. " + ae.getMessage());
+        return ae.getMessage();
+    }
 }

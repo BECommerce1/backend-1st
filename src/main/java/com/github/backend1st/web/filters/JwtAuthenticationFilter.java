@@ -1,12 +1,17 @@
 package com.github.backend1st.web.filters;
 
+import com.github.backend1st.config.CustomAccessDeniedHandler;
 import com.github.backend1st.config.JwtTokenProvider;
 import com.github.backend1st.repository.token.TokenRepository;
+import com.github.backend1st.service.exceptions.CustomAuthenticationEntryPointException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.security.auth.login.CredentialExpiredException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +32,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 유효한 토큰일 시 인증
         if (jwtToken != null && jwtTokenProvider.validateToken(jwtToken)) {
-            // token 테이블에 토큰이 없으면 invalid
-            if (!tokenRepository.existsByToken(jwtToken)) {
+            // token 테이블에 토큰이 있으면 (true) 인증 진행, 없으면 무효화.
+            if (tokenRepository.existsByToken(jwtToken) == Boolean.TRUE) {
                 // request가 로그아웃이면 넘어가기?
                 if (!request.getRequestURI().contains("logout")) {
                     Authentication auth = jwtTokenProvider.getAuthentication(jwtToken);
 
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
+            }
+            else {
+                // 401 예외 던지기
+                response.sendError(HttpStatus.UNAUTHORIZED.value());
             }
         }
 
