@@ -22,7 +22,7 @@ public class CommentsController {
     private final CommentsService commentsService;
 
     // 댓글등록
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ResponseDto> insertComment(@RequestBody CommentsRequestDto commentsRequestDto){
         Long memberId = 1l;
         commentsService.insertComment(commentsRequestDto, memberId);
@@ -31,7 +31,7 @@ public class CommentsController {
 
     }
 
-    /* REST API URI 다시설계, path말고 json으로 변경 */
+    /* REST API URI 다시설계, path말고 json으로 변경... 게시글의 댓글,,조회?  */
     // 댓글 조회
     @GetMapping("/{postId}")
     public ResponseEntity<List<CommentsResponseDto>> getPost(@PathVariable Long postId){

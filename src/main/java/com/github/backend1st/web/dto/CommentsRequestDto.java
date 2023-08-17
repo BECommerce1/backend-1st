@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class CommentsRequestDto {
 
-    private String content; // 댓글내용
+    private String content;
     private Long postId;
 
     public Comments toEntity(){
