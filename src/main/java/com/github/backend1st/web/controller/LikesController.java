@@ -22,6 +22,7 @@ public class LikesController {
     @ApiOperation("좋아요 클릭시 값 저장")
     @PostMapping("/insert_like/{replyId}")
     public String registerLikes(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long replyId){
+
         long memberId = customUserDetails.getMemberId();
         String message= likesService.savaItem(memberId,replyId);
         return message;
@@ -31,8 +32,8 @@ public class LikesController {
     @DeleteMapping("/delete_like/{replyId}")
     public String deleteLike(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long replyId) {
         long memberId = customUserDetails.getMemberId();
-        Long a = likesService.deleteLike(memberId, replyId);
-        return a+"번 삭제 완료";
+        Long deleteNo = likesService.deleteLike(memberId, replyId);
+        return deleteNo+"번 삭제 완료";
     }
     //해당 댓글의 좋아요 전체 카운트
     @ApiOperation("해당 댓글의 좋아요 전체 카운트")
@@ -49,7 +50,4 @@ public class LikesController {
         Boolean check_State = likesService.existsByMemberIdAndReplyId(memberId,replyId);
         return check_State;
     }
-
-
-
 }

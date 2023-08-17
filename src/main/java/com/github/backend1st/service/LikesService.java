@@ -20,8 +20,6 @@ import java.util.stream.Collectors;
 public class LikesService {
     private final LikesJpaRepository likesJpaRepository;
     public String savaItem(Long memberId, Long replyId) {
-
-        //TODO: 아이디 체크가 아닌 현재 저장될 코멘트가 있는지 체크
         List<LikesEntity> likesEntities =  likesJpaRepository.findLikesByMemberIdAndReplyId(memberId,replyId);
         //likesEntities.stream().map(LikesMapper.INSTANCE::likeEntityToItem).collect(Collectors.toList())
         if(!likesEntities.isEmpty()){
@@ -57,7 +55,6 @@ public class LikesService {
     public long countLike(Long replyId) {
         return likesJpaRepository.countByReplyId(replyId);
     }
-
     public boolean existsByMemberIdAndReplyId(Long memberId, Long replyId) {
         if (memberId == null || replyId == null) {
             throw new IllegalArgumentException("입력된 정보가 없습니다.");
