@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/backend-1st.main.iml" filepath="$PROJECT_DIR$/.idea/modules/backend-1st.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/backend-1st.test.iml" filepath="$PROJECT_DIR$/.idea/modules/backend-1st.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.github.backend-1st.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.github.backend-1st.main.iml" />
     </modules>
   </component>
 </project>

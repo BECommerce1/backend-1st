@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(transactionManager = "tmJpa")
 public class LikesService {
     private final LikesJpaRepository likesJpaRepository;
 
