@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class LikesController {
-
     private final LikesService likesService;
 
     @ApiOperation("좋아요 클릭시 값 저장")
@@ -35,7 +34,6 @@ public class LikesController {
         Long a = likesService.deleteLike(memberId, replyId);
         return a+"번 삭제 완료";
     }
-
     //해당 댓글의 좋아요 전체 카운트
     @ApiOperation("해당 댓글의 좋아요 전체 카운트")
     @GetMapping("/count_like/{replyId}")

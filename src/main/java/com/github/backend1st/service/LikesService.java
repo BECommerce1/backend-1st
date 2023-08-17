@@ -41,7 +41,6 @@ public class LikesService {
         if (memberId == null || replyId == null) {
             throw new IllegalArgumentException("입력된 정보가 없습니다.");
         }
-
         //memberId,replyId의 값으로 like_no값 호출 하기
         List<LikesEntity> likesEntities =  likesJpaRepository.findLikesByMemberIdAndReplyId(memberId,replyId);
         List<Long> likeIds = likesEntities.stream()
