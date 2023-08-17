@@ -52,9 +52,11 @@ public class LikesService {
         likesJpaRepository.deleteById(likeIds.get(0));
         return likeIds.get(0);
     }
+
     public long countLike(Long replyId) {
         return likesJpaRepository.countByReplyId(replyId);
     }
+
     public boolean existsByMemberIdAndReplyId(Long memberId, Long replyId) {
         if (memberId == null || replyId == null) {
             throw new IllegalArgumentException("입력된 정보가 없습니다.");

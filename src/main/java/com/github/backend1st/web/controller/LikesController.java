@@ -22,7 +22,6 @@ public class LikesController {
     @ApiOperation("좋아요 클릭시 값 저장")
     @PostMapping("/insert_like/{replyId}")
     public String registerLikes(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long replyId){
-
         long memberId = customUserDetails.getMemberId();
         String message= likesService.savaItem(memberId,replyId);
         return message;
