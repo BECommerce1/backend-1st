@@ -3,6 +3,7 @@ package com.github.backend1st.web.controller;
 import com.github.backend1st.repository.member.CustomUserDetails;
 import com.github.backend1st.service.AuthService;
 import com.github.backend1st.service.PostsService;
+import com.github.backend1st.web.dto.PostListResponseDto;
 import com.github.backend1st.web.dto.PostsRequestDto;
 import com.github.backend1st.web.dto.PostsResponseDto;
 import com.github.backend1st.web.dto.ResponseDto;
@@ -41,10 +42,11 @@ public class PostsController {
 
     // 게시글 전체조회
     @GetMapping
-    public ResponseEntity<List<PostsResponseDto>> getPostList() {
-       return ResponseEntity.ok(postsService.findAllDesc());
+    public ResponseEntity<PostListResponseDto> getPostList() {
+        PostListResponseDto listResponseDto = new PostListResponseDto();
+        listResponseDto.setPosts(postsService.findAllDesc());
+       return ResponseEntity.ok(listResponseDto);
     }
-
 
     // 게시글 수정
     @PutMapping("/{postId}")

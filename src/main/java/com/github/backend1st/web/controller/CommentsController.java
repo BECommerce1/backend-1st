@@ -2,6 +2,7 @@ package com.github.backend1st.web.controller;
 
 import com.github.backend1st.repository.member.CustomUserDetails;
 import com.github.backend1st.service.CommentsService;
+import com.github.backend1st.web.dto.CommentListResponseDto;
 import com.github.backend1st.web.dto.CommentsRequestDto;
 import com.github.backend1st.web.dto.CommentsResponseDto;
 import com.github.backend1st.web.dto.ResponseDto;
@@ -31,18 +32,20 @@ public class CommentsController {
         return ResponseEntity.ok(responseDto);
 
     }
-    // 댓글조회
+
+/*    // 댓글조회
     @GetMapping("/{postId}")
     public ResponseEntity<List<CommentsResponseDto>> getCommentList(@PathVariable Long postId){
         List<CommentsResponseDto> commentsList = commentsService.findByCommentList(postId);
         return ResponseEntity.ok(commentsList);
-    }
+ }*/
 
     // 댓글 전체조회
     @GetMapping
-    public ResponseEntity<List<CommentsResponseDto>> getCommentList(){
-        List<CommentsResponseDto> commentsList = commentsService.findByCommentList();
-        return ResponseEntity.ok(commentsList);
+    public ResponseEntity<CommentListResponseDto> getCommentList(){
+        CommentListResponseDto commentListResponseDto = new CommentListResponseDto();
+        commentListResponseDto.setComments(commentsService.findByCommentList());
+        return ResponseEntity.ok(commentListResponseDto);
     }
 
 
