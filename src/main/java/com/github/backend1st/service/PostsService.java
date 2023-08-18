@@ -51,7 +51,7 @@ public class PostsService {
     }
 
     // 게시글 수정
-    public void updatePost(PostsRequestDto postsRequestDto, Long memberId, Long postId){
+    public void updatePost(PostsRequestDto postsRequestDto, Long postId, Long memberId){
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("게시글 수정 실패!! 해당회원은 존재하지 않습니다."));
         Posts post = postsRepository.findById(postId)

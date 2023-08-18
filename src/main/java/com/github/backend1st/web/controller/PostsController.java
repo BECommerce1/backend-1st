@@ -1,5 +1,6 @@
 package com.github.backend1st.web.controller;
 
+import com.github.backend1st.repository.member.CustomUserDetails;
 import com.github.backend1st.service.AuthService;
 import com.github.backend1st.service.PostsService;
 import com.github.backend1st.web.dto.PostsRequestDto;
@@ -8,6 +9,7 @@ import com.github.backend1st.web.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +26,8 @@ public class PostsController {
 
     // 게시글 등록
     @PostMapping
-    public ResponseEntity<ResponseDto> insertPost(@RequestBody PostsRequestDto postsRequestDto){
-        Long memberId = 1l;
-        postsService.insertPost(postsRequestDto, memberId);
+    public ResponseEntity<ResponseDto> insertPost(@RequestBody PostsRequestDto postsRequestDto, @AuthenticationPrincipal  CustomUserDetails userDetails){
+        postsService.insertPost(postsRequestDto, userDetails.getMemberId());
         ResponseDto responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("게시물이 성공적으로 작성되었습니다.").build();
         return ResponseEntity.ok(responseDto);
     }
@@ -47,9 +48,8 @@ public class PostsController {
 
     // 게시글 수정
     @PutMapping("/{postId}")
-    public ResponseEntity<ResponseDto> updatePost(@RequestBody PostsRequestDto postsRequestDto, @PathVariable Long postId){
-        Long memberId = 1l;
-        postsService.updatePost(postsRequestDto, memberId, postId);
+    public ResponseEntity<ResponseDto> updatePost(@RequestBody PostsRequestDto postsRequestDto, @PathVariable Long postId, @AuthenticationPrincipal  CustomUserDetails userDetails){
+        postsService.updatePost(postsRequestDto, postId, userDetails.getMemberId());
         ResponseDto responseDto = ResponseDto.builder().status(HttpStatus.OK.toString()).message("게시물이 성공적으로 수정되었습니다.").build();
         return ResponseEntity.ok(responseDto);
     }
