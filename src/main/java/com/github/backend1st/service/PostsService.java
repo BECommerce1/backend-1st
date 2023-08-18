@@ -5,6 +5,7 @@ import com.github.backend1st.repository.member.MemberRepository;
 import com.github.backend1st.repository.posts.Posts;
 import com.github.backend1st.repository.posts.PostsRepository;
 import com.github.backend1st.service.exceptions.NotFoundException;
+import com.github.backend1st.web.dto.PostListResponseDto;
 import com.github.backend1st.web.dto.PostsRequestDto;
 import com.github.backend1st.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,6 @@ public class PostsService {
     public List<PostsResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream()
                 .map(posts -> new PostsResponseDto(posts)).collect(Collectors.toList());
-        //return postsRepository.findAll(Sort.by(Sort.Direction.DESC, "post_id"));
     }
 
     // 게시글 수정
