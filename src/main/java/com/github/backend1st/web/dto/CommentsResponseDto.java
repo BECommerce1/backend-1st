@@ -21,13 +21,13 @@ public class CommentsResponseDto {
     private LocalDateTime updateAt; // 수정일자
 
     @Builder
-    public CommentsResponseDto(Comments comments, Posts posts, Member member){
+    public CommentsResponseDto(Comments comments){
         this.commentId = comments.getCommentId();
         this.content = comments.getContent();
-        this.author = member.getEmail();
+        this.author = comments.getMember().getEmail();
         this.createAt = comments.getCreateAt();
         this.updateAt = comments.getUpdateAt();
-        this.postId = posts.getPostId();
+        this.postId = comments.getPosts().getPostId();
     }
 
 }

@@ -31,13 +31,17 @@ public class CommentsController {
         return ResponseEntity.ok(responseDto);
 
     }
-
-    /* REST API URI 다시설계, path말고 json으로 변경... 게시글의 댓글,,조회?  */
-    // 댓글 조회
+    // 댓글조회
     @GetMapping("/{postId}")
-    public ResponseEntity<List<CommentsResponseDto>> getPost(@PathVariable Long postId){
-        Long memberId = 1l;
-        List<CommentsResponseDto> commentsList = commentsService.findByCommentList(postId, memberId);
+    public ResponseEntity<List<CommentsResponseDto>> getCommentList(@PathVariable Long postId){
+        List<CommentsResponseDto> commentsList = commentsService.findByCommentList(postId);
+        return ResponseEntity.ok(commentsList);
+    }
+
+    // 댓글 전체조회
+    @GetMapping
+    public ResponseEntity<List<CommentsResponseDto>> getCommentList(){
+        List<CommentsResponseDto> commentsList = commentsService.findByCommentList();
         return ResponseEntity.ok(commentsList);
     }
 

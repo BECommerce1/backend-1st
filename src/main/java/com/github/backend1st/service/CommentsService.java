@@ -28,8 +28,8 @@ public class CommentsService {
     private final PostsRepository postRepository;
     private final MemberRepository memberRepository;
 
-    /* tobe 회원 객체로 전부 변경 */
-    //댓글등록
+
+    // 댓글등록
     public void insertComment(CommentsRequestDto commentsRequestDto, Long memberId){
 
         Member member = memberRepository.findById(memberId).orElseThrow();
@@ -41,18 +41,24 @@ public class CommentsService {
         commentsRepository.save(saveComment);
     }
 
-    //댓글조회
+    // 댓글조회
     @Transactional(readOnly = true)
-    public List<CommentsResponseDto> findByCommentList(Long postId, Long memberId){
-
-        Member member = memberRepository.findById(memberId).orElseThrow();
+    public List<CommentsResponseDto> findByCommentList(Long postId){
         Posts posts =  postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("댓글 조회 실패!! 해당 게시글은 존재하지 않습니다. ," + postId));
-
         List<Comments> commentsList = commentsRepository.findByPostsOrderByCommentIdAsc(posts);
-
         return commentsList.stream()
-                .map(comments -> new CommentsResponseDto(comments, posts, member))
+                .map(comments -> new CommentsResponseDto(comments))
+                .collect(Collectors.toList());
+    }
+
+
+    //댓글 전체조회
+    @Transactional(readOnly = true)
+    public List<CommentsResponseDto> findByCommentList(){
+        List<Comments> commentsList = commentsRepository.findAll();
+        return commentsList.stream()
+                .map(comments -> new CommentsResponseDto(comments))
                 .collect(Collectors.toList());
     }
 
