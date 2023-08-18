@@ -10,18 +10,29 @@ const PostDetailPage = () => {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([{
       id: 1,
-      content: '댓글 내용',
+      content: 1,
       author: '작성자1',
-      post_id: 1,
+      post_id: 3,
       created_at: '작성일시'
     },
     {
       id: 2,
-      content: '댓글 내용',
+      content: 1,
       author: '작성자2',
       post_id: 1,
       created_at: '작성일시'
+    },
+    {
+      id: 3,
+      content: 1,
+      author: '작성자3',
+      post_id: 2,
+      created_at: '작성일시'
     }]);
+  const [like, setLike] = useState(false)
+
+  //const sessionId = localStorage.getItem('sessionId');
+  const sessionId = 1;
   const [newComment, setNewCommnent] = useState({
     content: '',
     author: ''
@@ -36,6 +47,14 @@ const PostDetailPage = () => {
     .catch((err) => console.error(err));
   }
 
+
+  const fetchComment = async (id,post_id) => {
+    const response = await fetch(`/v1/api/check_like?memberId=${id}&replyId=${post_id}`);
+    const data = await response.json();
+    return data;
+  };
+
+
   useEffect(() => {
     const postData = JSON.parse(localStorage.getItem('post'));
     setPost({ ...postData });
@@ -45,6 +64,7 @@ const PostDetailPage = () => {
       console.error(e)
     }
   }, []);
+
 
   const handlePostChange = async () => {
     await fetch(`http://localhost:8080/api/posts/${post.id}`, {
@@ -63,6 +83,48 @@ const PostDetailPage = () => {
         content: content
       })
     }).catch((err) => console.error(err));
+  };
+
+
+  const handleCommentInsert = async (id, post_id) => {
+    const comment = await fetchComment(id,post_id);
+    if (comment == false) {
+      // 댓글에 no가 없을 경우
+      const response = await fetch(`/v1/api/insert_like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Referrer-Policy': 'no-referrer'
+        },
+        body: JSON.stringify({
+          memberId: id,
+          replyId: post_id
+        })
+      });
+      if (response.status === 200) {
+        // 좋아요가 성공적으로 추가된 경우
+        document.getElementById(post_id).innerHTML = '취소';
+        document.getElementById(post_id).style.backgroundColor = 'red';
+      }
+    } else {
+      // 댓글에 no가 있을 경우
+      const response = await fetch(`/v1/api/delete_like/${id}/${post_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Referrer-Policy': 'no-referrer'
+        },
+        body: JSON.stringify({
+          memberId: id,
+          replyId: post_id
+        })
+      });
+      if (response.status === 200) {
+        // 좋아요가 성공적으로 삭제된 경우
+        document.getElementById(post_id).innerHTML = '좋아요';
+        document.getElementById(post_id).style.backgroundColor = 'rgb(0, 114, 229)';
+      }
+    }
   };
 
   const changeComment = (commentId, comment) => {
@@ -88,6 +150,24 @@ const PostDetailPage = () => {
       })
     }).catch((err) => console.error(err));
   }
+  const likes = comments.map(c => c.id);
+
+  const isLiked = async(id, post_id) => {
+    const response = await fetch(`/v1/api/check_like?memberId=${id}&replyId=${post_id}`, {
+      method: 'GET',
+    });
+    const d = await response.json();
+    if(d == true){
+      const element = document.getElementById(post_id);
+      element.innerHTML = '취소';
+      document.getElementById(post_id).style.backgroundColor = 'red';
+    }else{
+      const element = document.getElementById(post_id);
+      element.innerHTML = '좋아요';
+      document.getElementById(post_id).style.backgroundColor = 'rgb(0, 114, 229)';
+    }
+    return '';
+  };
 
   return (
     <div style={{
@@ -148,6 +228,9 @@ const PostDetailPage = () => {
                   {c?.created_at || ''}
                 </Typography>
                 <CustomButton style={{ backgroundColor: blue[500] }} onClick={() => handleCommentChange(c.id, c.content)}>수정</CustomButton>
+                {isLiked(sessionId, c.post_id) ? "" : ""}
+                <CustomButton id={c.id} class="like-button" style={{ marginTop: 10 }} onClick={() => handleCommentInsert(sessionId, c.id)}>좋아요</CustomButton>
+
               </CardContent>
             </Card>
           )))
