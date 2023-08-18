@@ -15,10 +15,11 @@ public class PostsResponseDto {
     private LocalDateTime createAt;
 
     @Builder
-    public PostsResponseDto(Posts entity){
-        this.postId = entity.getPostId();
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
-        this.createAt = entity.getCreateAt();
+    public PostsResponseDto(Posts posts){
+        this.postId = posts.getPostId();
+        this.title = posts.getTitle();
+        this.content = posts.getContent();
+        this.author = posts.getMember().getEmail();
+        this.createAt = posts.getCreateAt();
     }
 }
