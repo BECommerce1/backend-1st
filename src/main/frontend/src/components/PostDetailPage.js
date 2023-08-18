@@ -27,12 +27,12 @@ const PostDetailPage = () => {
   })
 
   async function fetchData() {
-    // await fetch('http://localhost:8080/api/comments')
-    // .then(res => res.json()).then(res => {
-    //   if(!res) return;
-    //   setComments([...res.comments.filter(c => c?.post_id === post.id)])
-    // })
-    // .catch((err) => console.error(err));
+     await fetch('http://localhost:8080/api/comments')
+     .then(res => res.json()).then(res => {
+       if(!res) return;
+       setComments([...res.comments.filter(c => c?.postId === post.id)])
+     })
+     .catch((err) => console.error(err));
   }
 
   useEffect(() => {
@@ -49,6 +49,10 @@ const PostDetailPage = () => {
   const handlePostChange = async () => {
     await fetch(`http://localhost:8080/api/posts/${post.id}`, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+      },
       body: JSON.stringify({
         title: post?.title || '',
         content: post?.content || ''
@@ -164,12 +168,13 @@ const PostDetailPage = () => {
     await fetch(`http://localhost:8080/api/comments`, {
       method: 'POST',
       headers: {
-        'Content-Type' : 'application/json'
+        'Content-Type' : 'application/json',
+        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
       },
       body: JSON.stringify({
         author: newComment.author,
         content: newComment.content,
-        post_id: post.id // postId
+        postId: post.id
       })
     }).catch((err) => console.error(err));
   }

@@ -9,13 +9,16 @@ const CreatePostPage = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState({
     title: '',
-    author: '',
     content: ''
   });
 
   const submitPost = async () => {
     await fetch(`http://localhost:8080/api/posts`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+      },
       body: JSON.stringify({
         title: post?.title || '',
         content: post?.content || ''

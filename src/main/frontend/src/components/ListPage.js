@@ -6,27 +6,18 @@ import {Table, TableBody, TableCell, TableHead, TableRow, TextField} from '@mui/
 
 const ListPage = () => {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState('');
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: '게시물 제목1',
-      content: '게시물 내용1',
-      author: '작성자',
-      created_at: '작성일시'
-    },
-    {
-      id: 2,
-      title: '게시물 제목2',
-      content: '게시물 내용2',
-      author: '작성자',
-      created_at: '작성일시'
-    }
-  ]);
+  const [keyword, setKeyword] = useState();
+  const [posts, setPosts] = useState();
 
   useEffect(() => {
     async function fetchData() {
-      await fetch('http://localhost:8080/api/posts')
+      await fetch('http://localhost:8080/api/posts',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-AUTH-TOKEN': localStorage.getItem('X-AUTH-TOKEN')
+        },
+      })
       .then(res => res.json()).then(res => setPosts([...res.posts]))
       .catch((err) => console.error(err));
     }
@@ -90,7 +81,7 @@ const ListPage = () => {
         <TableBody>
           {posts.map(post => (
             <TableRow
-              key={post.id}
+              key={post.postId}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               onClick={() => {
                 localStorage.setItem('post', JSON.stringify({ ...post}))
@@ -102,7 +93,7 @@ const ListPage = () => {
               </TableCell>
               <TableCell>{post.content}</TableCell>
               <TableCell>{post.author}</TableCell>
-              <TableCell>{post.created_at}</TableCell>
+              <TableCell>{post.createdAt}</TableCell>
             </TableRow>
           ))}
         </TableBody>
