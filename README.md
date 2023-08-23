@@ -35,7 +35,7 @@ CRUD 게시판.
 <hr>
 
 ### ERD
-**사진 넣기**
+<img width="500" alt="스크린샷 2023-08-24 오전 5 32 07" src="https://github.com/BECommerce1/backend-1st/assets/86288994/d23ac871-734b-4fbf-91c4-aed894142d80">
 
 ### 회원 API
 #### 회원가입 - <a href="" >상세</a>
