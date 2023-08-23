@@ -14,7 +14,7 @@ CRUD 게시판.
  - 신화정 : 댓글 API, 게시글 API
  - 차현아 : 회원 API
 
-### ⚙️ 개발 환경, 기술
+### ⚙️ 개발 환경
 - **JAVA 11**
 - **IDE** : IntelliJ
 - **Framework** : Springboot 2.7.14
@@ -22,8 +22,14 @@ CRUD 게시판.
 - **ORM** : JPA
 - **DOCS** : Swagger
 - **LOGGING** : Slf4J
-
 - **FRONTEND** : REACT
+
+### ⚒️ 사용 기술 
+- Spring Web MVC
+- Spring Security + JWT
+- Spring JPA
+- Spring Logging
+- PostMan(Test)
 
 <br>
 
