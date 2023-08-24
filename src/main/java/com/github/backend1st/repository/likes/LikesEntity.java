@@ -1,36 +1,38 @@
 package com.github.backend1st.repository.likes;
 
+import com.github.backend1st.repository.comments.Comments;
+import com.github.backend1st.repository.member.Member;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = "like_id")
-@ToString
-@Builder
 @Entity
 @Table(name = "likes")
+
 public class LikesEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
     private Long likeId;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @Column(name = "reply_id")
-    private Long replyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id", nullable = false)
+    private Comments comment;
 
     @Column(name = "created_time")
+    @CreationTimestamp
     private LocalDateTime createTime;
 
-    public LikesEntity(Long likeId, Long memberId, Long replyId, LocalDateTime createTime) {
-        this.likeId = likeId;
-        this.memberId = memberId;
-        this.replyId = replyId;
-        this.createTime = createTime;
+    @Builder
+    public LikesEntity(Member member, Comments comment) {
+        this.member = member;
+        this.comment = comment;
     }
 }
