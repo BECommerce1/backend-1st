@@ -3,7 +3,6 @@ package com.github.backend1st.service;
 import com.github.backend1st.repository.likes.LikesEntity;
 import com.github.backend1st.repository.likes.LikesJpaRepository;
 import com.github.backend1st.service.exceptions.NotFoundException;
-import com.github.backend1st.service.mapper.LikesMapper;
 import com.github.backend1st.web.dto.Likes;
 import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
